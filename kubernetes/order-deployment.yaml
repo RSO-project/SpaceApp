@@ -13,7 +13,7 @@ spec:
         app: order
     spec:
       containers:
-      - image: jmezna/rso-orders:0.9
+      - image: kemo93/spaceapp:0.1
         name: order
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
