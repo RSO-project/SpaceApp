@@ -14,7 +14,7 @@ cache:
   - $HOME/.m2
 
 env:
-  - DOCKER_IMAGE=kemo93/spaceapp:0.1
+  - DOCKER_IMAGE=kemo93/spaceapp:0.11
 
 script:
   - mvn clean package -U
