@@ -13,7 +13,7 @@ spec:
         app: order
     spec:
       containers:
-      - image: kemo93/spaceapp:0.112
+      - image: kemo93/spaceapp:0.113
         name: order
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
