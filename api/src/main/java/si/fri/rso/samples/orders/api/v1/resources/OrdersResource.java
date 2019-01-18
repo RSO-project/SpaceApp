@@ -25,6 +25,11 @@ public class OrdersResource {
     private OrdersBean ordersBean;
 
     @GET
+    public Response getTest() {
+        return Response.ok("Test").build();
+    }
+
+    @GET
     public Response getOrders() {
 
         List<Order> orders = ordersBean.getOrders(uriInfo);
