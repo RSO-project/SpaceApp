@@ -1,7 +1,7 @@
-package si.fri.rso.samples.orders.api.v1.mappers;
+package si.fri.rso.samples.rents.api.v1.mappers;
 
 
-import si.fri.rso.samples.orders.api.v1.dtos.ApiError;
+import si.fri.rso.samples.rents.api.v1.dtos.ApiError;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.MediaType;

@@ -1,5 +1,5 @@
 kumuluzee:
-  name: rso-orders
+  name: rso-rents
   env:
     name: dev
   version: 1.0.0
@@ -8,8 +8,8 @@ kumuluzee:
     http:
       port: 8081
   datasources:
-    - jndi-name: jdbc/OrdersDS
- #     connection-url: jdbc:postgresql://192.168.99.100:5433/order
+    - jndi-name: jdbc/rentsDS
+ #     connection-url: jdbc:postgresql://192.168.99.100:5433/rent
       #username: dbuser
 #      password: postgres
 #      connection-url: jdbc:postgresql://sl-eu-gb-p00.dblayer.com:15468/compose

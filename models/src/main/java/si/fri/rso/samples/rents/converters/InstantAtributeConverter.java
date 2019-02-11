@@ -1,4 +1,4 @@
-package si.fri.rso.samples.orders.converters;
+package si.fri.rso.samples.rents.converters;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

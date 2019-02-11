@@ -1,4 +1,4 @@
-package si.fri.rso.samples.orders.api.v1.configuration;
+package si.fri.rso.samples.rents.api.v1.configuration;
 
 import com.kumuluz.ee.configuration.cdi.ConfigBundle;
 

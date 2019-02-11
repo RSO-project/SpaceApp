@@ -1,8 +1,8 @@
-package si.fri.rso.samples.orders.services.streaming.consumers;
+package si.fri.rso.samples.rents.services.streaming.consumers;
 
 import com.kumuluz.ee.streaming.common.annotations.StreamListener;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import si.fri.rso.samples.orders.services.OrdersBean;
+import si.fri.rso.samples.rents.services.RentsBean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -13,12 +13,12 @@ import java.io.StringReader;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class OrdersConsumer {
+public class RentsConsumer {
 
-    private Logger log = Logger.getLogger(OrdersConsumer.class.getName());
+    private Logger log = Logger.getLogger(RentsConsumer.class.getName());
 
     @Inject
-    private OrdersBean ordersBean;
+    private RentsBean rentsBean;
 
     @StreamListener(topics = {"9pagnfwv-default"})
     public void onMessage(ConsumerRecord<String, String> record) {
@@ -31,9 +31,9 @@ public class OrdersConsumer {
         Integer id = data.getInt("id");
         String status = data.getString("status");
 
-        log.info("Status for order " + id + " set to " + status);
+        log.info("Status for rent " + id + " set to " + status);
 
-        ordersBean.setOrderStatus(id, status);
+        rentsBean.setRentStatus(id, status);
 
     }
 

@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-deployment
+  name: rent-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: order
+      app: rent
   template:
     metadata:
       labels:
-        app: order
+        app: rent
     spec:
       containers:
       - image: kemo93/spaceapp:0.113
-        name: order
+        name: rent
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
             value: gcloud
@@ -38,7 +38,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: order
+  name: rent
 spec:
   type: NodePort
   ports:
@@ -46,4 +46,4 @@ spec:
     protocol: TCP
     targetPort: 8081
   selector:
-    app: order
+    app: rent

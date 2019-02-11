@@ -1,63 +1,73 @@
-package si.fri.rso.samples.orders.services;
+package si.fri.rso.samples.rents.services;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import si.fri.rso.samples.orders.entities.Order;
+import si.fri.rso.samples.rents.entities.Rent;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.time.Instant;
 import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
-public class OrdersBean {
+public class RentsBean {
 
-    private Logger log = Logger.getLogger(OrdersBean.class.getName());
+    private Logger log = Logger.getLogger(RentsBean.class.getName());
 
     @Inject
     private EntityManager em;
 
-    public List<Order> getOrders(UriInfo uriInfo) {
+    public List<Rent> getRents(UriInfo uriInfo) {
 
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery())
                 .defaultOffset(0)
                 .build();
 
-        return JPAUtils.queryEntities(em, Order.class, queryParameters);
+        return JPAUtils.queryEntities(em, Rent.class, queryParameters);
 
     }
 
-    public Order getOrder(Integer orderId) {
+    public List<Rent> getRentsFull() {
+        TypedQuery<Rent> query = em.createNamedQuery("Rent.fullData", Rent.class);
 
-        Order order = em.find(Order.class, orderId);
+        List<Rent> rents = query.getResultList();
 
-        if (order == null) {
+        return rents;
+    }
+
+    public Rent getRent(Integer rentId) {
+
+        Rent rent = em.find(Rent.class, rentId);
+
+        if (rent == null) {
             throw new NotFoundException();
         }
 
-        return order;
+        return rent;
     }
 
-    public Order createOrder(Order order) {
+    public Rent createRent(Rent rent) {
 
         try {
             beginTx();
-            em.persist(order);
+            em.persist(rent);
             commitTx();
         } catch (Exception e) {
             rollbackTx();
         }
 
-        return order;
+        return rent;
     }
 
-    public Order putOrder(Integer orderId, Order order) {
+    public Rent putRent(Integer rentId, Rent rent) {
 
-        Order c = em.find(Order.class, orderId);
+        Rent c = em.find(Rent.class, rentId);
 
         if (c == null) {
             return null;
@@ -65,44 +75,44 @@ public class OrdersBean {
 
         try {
             beginTx();
-            order.setId(c.getId());
-            order = em.merge(order);
+            rent.setId(c.getId());
+            rent = em.merge(rent);
             commitTx();
         } catch (Exception e) {
             rollbackTx();
         }
 
-        return order;
+        return rent;
     }
 
-    public Order completeOrder(Integer orderId) {
+    public Rent completeRent(Integer rentId) {
 
-        Order order = em.find(Order.class, orderId);
+        Rent rent = em.find(Rent.class, rentId);
 
-        if (order == null) {
+        if (rent == null) {
             throw new NotFoundException();
         }
 
         try {
             beginTx();
-            order.setStatus("completed");
-            order.setCompleted(Instant.now());
+            rent.setStatus("completed");
+            //rent.setCompleted(Instant.now());
             commitTx();
         } catch (Exception e) {
             rollbackTx();
         }
 
-        return order;
+        return rent;
     }
 
-    public boolean deleteOrder(String orderId) {
+    public boolean deleteRent(Integer rentId) {
 
-        Order order = em.find(Order.class, orderId);
+        Rent rent = em.find(Rent.class, rentId);
 
-        if (order != null) {
+        if (rent != null) {
             try {
                 beginTx();
-                em.remove(order);
+                em.remove(rent);
                 commitTx();
             } catch (Exception e) {
                 rollbackTx();
@@ -113,18 +123,18 @@ public class OrdersBean {
         return true;
     }
 
-    public void setOrderStatus(Integer orderId, String status) {
+    public void setRentStatus(Integer rentId, String status) {
 
-        Order order = em.find(Order.class, orderId);
+        Rent rent = em.find(Rent.class, rentId);
 
-        if (order == null) {
+        if (rent == null) {
             throw new NotFoundException();
         }
 
         try {
             beginTx();
-            order.setStatus(status);
-            em.merge(order);
+            rent.setStatus(status);
+            em.merge(rent);
             commitTx();
         } catch (Exception e) {
             rollbackTx();
